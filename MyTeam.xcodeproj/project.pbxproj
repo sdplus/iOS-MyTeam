@@ -88,7 +88,7 @@
 				3DF7FAA91E313341006DD9E5 /* EmptyViewController.swift */,
 				3DF7FAAB1E31341B006DD9E5 /* GameViewController.swift */,
 			);
-			name = ViewControllers;
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 		3D9BF0D91E2FD005008F3F9B /* Model */ = {
@@ -97,7 +97,7 @@
 				3DBDD52A1E30217500D2A517 /* Game.swift */,
 				3DBDD52C1E3021B300D2A517 /* GameModel.swift */,
 			);
-			name = Model;
+			path = Model;
 			sourceTree = "<group>";
 		};
 		3D9BF0DA1E2FD01F008F3F9B /* Views */ = {
@@ -106,7 +106,7 @@
 				3DBDD52E1E3032C800D2A517 /* GameTableViewCell.swift */,
 				3DF7FAAD1E313A9A006DD9E5 /* GameCollectionCell.swift */,
 			);
-			name = Views;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		3DBDD5301E3048D000D2A517 /* Helpers */ = {
@@ -114,7 +114,7 @@
 			children = (
 				3DBDD5311E3048E200D2A517 /* Formatter.swift */,
 			);
-			name = Helpers;
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
