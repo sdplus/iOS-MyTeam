@@ -14,3 +14,11 @@ extension Date {
         return dateFormatter.string(from: self)
     }
 }
+
+extension String {
+    func toDate() -> Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy"
+        return dateFormatter.date(from: self)! // Veilig uitpakken indien er lege string is
+    }
+}

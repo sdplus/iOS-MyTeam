@@ -8,7 +8,7 @@
 import CoreLocation
 
 class GameModel {
-    
+    /*
     var games: [Game] = [
         Game(homeTeam:"KAA Gent", awayTeam: "Zulte-Waregem", location: CLLocationCoordinate2DMake(58, 52), address: "Botestraat", date: Date(), time: "14:30"),
         Game(homeTeam:"Dames Eendracht Aalst", awayTeam: "KAA Gent", location: CLLocationCoordinate2DMake(58, 52), address: "Zandberg", date: Date(), time: "15:00")
@@ -19,6 +19,6 @@ class GameModel {
             fatalError("Invalid index into GameModel: \(index)")
         }
         return games[index]
-    }
+    }*/
     
 }
