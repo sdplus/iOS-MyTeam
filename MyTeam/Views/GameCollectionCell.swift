@@ -13,4 +13,7 @@ class GameCollectionCell: UICollectionViewCell {
     @IBOutlet weak var homeTeamNameLabel: UILabel!
     @IBOutlet weak var awayTeamNameLabel: UILabel!
     
+    @IBOutlet weak var scoreLabel: UILabel!
+    
+    
 }

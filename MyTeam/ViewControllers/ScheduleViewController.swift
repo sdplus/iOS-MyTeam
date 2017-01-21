@@ -111,8 +111,6 @@ extension ScheduleViewController: UITableViewDataSource {
 extension ScheduleViewController: UISplitViewControllerDelegate {
     
     func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
-        print(splitViewController.traitCollection)
-        print(secondaryViewController.traitCollection)
         // Show master view controller first on iPhone
         // master view controller always collapse onto the detail view controller
         return true

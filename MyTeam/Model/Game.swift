@@ -13,17 +13,23 @@ class Game {
     let homeTeam: String // eventueel aanpassen naar team
     let awayTeam: String // eventueel aanpassen naar team
     let location: CLLocationCoordinate2D
-    let address: String
+    let street: String
+    let no: Int
+    let city: String
+    let zip: Int
     let date: Date
     let time: String
     let homeTeamScore: Int
     let awayTeamScore: Int
     
-    init(homeTeam: String, awayTeam: String, location: CLLocationCoordinate2D, address: String, date: Date, time: String, homeTeamScore: Int, awayTeamScore: Int) {
+    init(homeTeam: String, awayTeam: String, location: CLLocationCoordinate2D, street: String, no: Int, city: String, zip: Int, date: Date, time: String, homeTeamScore: Int, awayTeamScore: Int) {
         self.homeTeam = homeTeam
         self.awayTeam = awayTeam
         self.location = location
-        self.address = address
+        self.street = street
+        self.no = no
+        self.zip = zip
+        self.city = city
         self.date = date
         self.time = time
         self.homeTeamScore = homeTeamScore
@@ -88,7 +94,10 @@ extension Game {
         self.init(homeTeam: homeTeam,
                   awayTeam: awayTeam,
                   location: CLLocationCoordinate2D(latitude: latitude, longitude: longitude),
-                  address: "a",
+                  street: street,
+                  no: no,
+                  city: city,
+                  zip: zip,
                   date: datum.toDate(),
                   time: time,
                   homeTeamScore: homeTeamScore,

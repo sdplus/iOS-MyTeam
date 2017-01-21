@@ -11,8 +11,8 @@ import UIKit
 class GameViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var homeTeamNameLabel: UILabel!
-    @IBOutlet weak var awayTeamNameLabel: UILabel!
+
+
     var game: Game!
 
     override func viewDidLoad() {
@@ -30,6 +30,20 @@ class GameViewController: UIViewController {
             navigationItem.leftBarButtonItem = splitViewController!.displayModeButtonItem
         }
     }
+    
+    func getDirections(sender: UIButton) {
+        /*
+        let colorName = sender.title(for: .disabled)!
+        selectedColor = model.scores.keys.filter { $0.name == colorName }.first!
+        performSegue(withIdentifier: "vote", sender: sender)
+         */
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destination = segue.destination as! MapViewController
+        destination.destinationLocation = game.location
+    }
+
 
 
 }
@@ -42,7 +56,7 @@ extension GameViewController: UICollectionViewDelegate {
 extension GameViewController: UICollectionViewDataSource {
     
    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
+        return 3
     }
     
     
@@ -51,12 +65,27 @@ extension GameViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "gameCell", for: indexPath) as! GameCollectionCell
+        switch indexPath.section {
+            case 0:
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "gameCell", for: indexPath) as! GameCollectionCell
+                cell.homeTeamNameLabel!.text = game.homeTeam
+                cell.awayTeamNameLabel!.text = game.awayTeam
+                cell.scoreLabel!.text = "\(game.homeTeamScore) - \(game.awayTeamScore)"
+                return cell
+
+            case 1:
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "addressCell", for: indexPath) as! AddressCell
+                cell.straatNrLabel!.text = "\(game.street) \(game.no)"
+                cell.zipCityLabel!.text = "\(game.zip) \(game.city)"
+                return cell
+            default:
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "squadCell", for: indexPath) as! SquadCell
+                return cell
+            
+        }
         
-        cell.homeTeamNameLabel!.text = game.homeTeam
-        cell.awayTeamNameLabel!.text = game.awayTeam
         
-        return cell
+        
     }
     
 }
