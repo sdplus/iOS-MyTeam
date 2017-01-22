@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D7621251E3530C3009BAC06 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7621241E3530C3009BAC06 /* GameView.swift */; };
 		3D9BF0C71E2FCFB5008F3F9B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9BF0C61E2FCFB5008F3F9B /* AppDelegate.swift */; };
 		3D9BF0CC1E2FCFB6008F3F9B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D9BF0CA1E2FCFB6008F3F9B /* Main.storyboard */; };
 		3D9BF0CE1E2FCFB7008F3F9B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D9BF0CD1E2FCFB7008F3F9B /* Assets.xcassets */; };
@@ -31,6 +32,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3D7621241E3530C3009BAC06 /* GameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		3D9BF0C31E2FCFB5008F3F9B /* MyTeam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyTeam.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D9BF0C61E2FCFB5008F3F9B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3D9BF0CB1E2FCFB6008F3F9B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 				3DF7FAAB1E31341B006DD9E5 /* GameViewController.swift */,
 				3DEF9E391E32E9F000882BDC /* MapViewController.swift */,
 				3DFE79331E33FE1800DB7183 /* DirectionsViewController.swift */,
+				3D7621241E3530C3009BAC06 /* GameView.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -237,6 +240,7 @@
 				3DF7FAB11E3171D5006DD9E5 /* Service.swift in Sources */,
 				3DF7FAAA1E313342006DD9E5 /* EmptyViewController.swift in Sources */,
 				3DBDD5291E301A5D00D2A517 /* ScheduleViewController.swift in Sources */,
+				3D7621251E3530C3009BAC06 /* GameView.swift in Sources */,
 				3DEF9E361E32C18300882BDC /* AddressCell.swift in Sources */,
 				3DEF40E11E34563D00237EBB /* DirectionFooterCell.swift in Sources */,
 				3DF7FAB51E317802006DD9E5 /* Result.swift in Sources */,

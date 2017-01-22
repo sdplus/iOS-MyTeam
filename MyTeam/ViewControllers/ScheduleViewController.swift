@@ -76,7 +76,7 @@ class ScheduleViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let navigationController = segue.destination as! UINavigationController
-        let gameViewController = navigationController.topViewController as! GameViewController
+        let gameViewController = navigationController.topViewController as! GameView
         let selectedIndex = tableView.indexPathForSelectedRow!.row
         gameViewController.game = games[selectedIndex]
     }
