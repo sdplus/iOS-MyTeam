@@ -10,7 +10,6 @@ import UIKit
 class ScheduleViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
-    
     // fileprivate var model = GameModel()
     
     fileprivate var games: [Game] = []
