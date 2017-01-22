@@ -42,6 +42,7 @@ class GameViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destination = segue.destination as! MapViewController
         destination.destinationLocation = game.location
+        destination.destinationAddress = "\(game.street) \(game.no), \(game.city)"
     }
 
 

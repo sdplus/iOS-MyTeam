@@ -6,11 +6,13 @@
 //  Copyright © 2017 Sofie De Plus. All rights reserved.
 //
 import UIKit
+import CoreLocation
+import MapKit
 
 extension Date {
     func toString() -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMMM dd yyyy"
+        dateFormatter.dateFormat = "dd MMMM yyyy"
         return dateFormatter.string(from: self)
     }
 }
@@ -22,3 +24,22 @@ extension String {
         return dateFormatter.date(from: self)! // Veilig uitpakken indien er lege string is
     }
 }
+
+extension TimeInterval {
+    func formatted() -> String {
+        let formatter = DateComponentsFormatter()
+        formatter.unitsStyle = .full
+        formatter.allowedUnits = [ .hour, .minute, .second ]
+        
+        return formatter.string(from: self)!
+    }
+}
+
+extension CLLocationDistance {
+    func toString() -> String {
+        let distanceFormatter = MKDistanceFormatter()
+        distanceFormatter.unitStyle = .abbreviated
+        return distanceFormatter.string(fromDistance: self)
+    }
+}
+
