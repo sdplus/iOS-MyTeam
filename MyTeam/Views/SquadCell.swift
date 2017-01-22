@@ -8,6 +8,6 @@
 
 import UIKit
 
-class SquadCell: UICollectionViewCell {
+class SquadCell: UITableViewCell {
     
 }

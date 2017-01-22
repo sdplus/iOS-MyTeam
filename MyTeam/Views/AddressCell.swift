@@ -8,13 +8,7 @@
 
 import UIKit
 
-class AddressCell: UICollectionViewCell {
-    
-   /* @IBOutlet weak var straatNrLabel: UILabel!
-    
-    @IBOutlet weak var zipCityLabel: UILabel!
-    
-    @IBOutlet weak var routeButton: UIButton!*/
+class AddressCell: UITableViewCell {
     
     
     @IBOutlet weak var streetNrLabel: UILabel!

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3D7621251E3530C3009BAC06 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7621241E3530C3009BAC06 /* GameView.swift */; };
 		3D9BF0C71E2FCFB5008F3F9B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9BF0C61E2FCFB5008F3F9B /* AppDelegate.swift */; };
 		3D9BF0CC1E2FCFB6008F3F9B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D9BF0CA1E2FCFB6008F3F9B /* Main.storyboard */; };
 		3D9BF0CE1E2FCFB7008F3F9B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D9BF0CD1E2FCFB7008F3F9B /* Assets.xcassets */; };
@@ -24,7 +23,6 @@
 		3DEF9E3A1E32E9F000882BDC /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEF9E391E32E9F000882BDC /* MapViewController.swift */; };
 		3DF7FAAA1E313342006DD9E5 /* EmptyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF7FAA91E313341006DD9E5 /* EmptyViewController.swift */; };
 		3DF7FAAC1E31341B006DD9E5 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF7FAAB1E31341B006DD9E5 /* GameViewController.swift */; };
-		3DF7FAAE1E313A9A006DD9E5 /* GameCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF7FAAD1E313A9A006DD9E5 /* GameCollectionCell.swift */; };
 		3DF7FAB11E3171D5006DD9E5 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF7FAB01E3171D5006DD9E5 /* Service.swift */; };
 		3DF7FAB31E317226006DD9E5 /* Properties.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3DF7FAB21E317226006DD9E5 /* Properties.plist */; };
 		3DF7FAB51E317802006DD9E5 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF7FAB41E317802006DD9E5 /* Result.swift */; };
@@ -32,7 +30,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3D7621241E3530C3009BAC06 /* GameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		3D9BF0C31E2FCFB5008F3F9B /* MyTeam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyTeam.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D9BF0C61E2FCFB5008F3F9B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3D9BF0CB1E2FCFB6008F3F9B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -51,7 +48,6 @@
 		3DEF9E391E32E9F000882BDC /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		3DF7FAA91E313341006DD9E5 /* EmptyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyViewController.swift; sourceTree = "<group>"; };
 		3DF7FAAB1E31341B006DD9E5 /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
-		3DF7FAAD1E313A9A006DD9E5 /* GameCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameCollectionCell.swift; sourceTree = "<group>"; };
 		3DF7FAB01E3171D5006DD9E5 /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		3DF7FAB21E317226006DD9E5 /* Properties.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Properties.plist; sourceTree = "<group>"; };
 		3DF7FAB41E317802006DD9E5 /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
@@ -111,7 +107,6 @@
 				3DF7FAAB1E31341B006DD9E5 /* GameViewController.swift */,
 				3DEF9E391E32E9F000882BDC /* MapViewController.swift */,
 				3DFE79331E33FE1800DB7183 /* DirectionsViewController.swift */,
-				3D7621241E3530C3009BAC06 /* GameView.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -129,7 +124,6 @@
 			isa = PBXGroup;
 			children = (
 				3DBDD52E1E3032C800D2A517 /* GameTableViewCell.swift */,
-				3DF7FAAD1E313A9A006DD9E5 /* GameCollectionCell.swift */,
 				3DEF9E351E32C18300882BDC /* AddressCell.swift */,
 				3DEF9E371E32D27400882BDC /* SquadCell.swift */,
 				3DEF40DE1E344EEE00237EBB /* DirectionHeaderCell.swift */,
@@ -231,7 +225,6 @@
 				3DBDD5321E3048E200D2A517 /* Formatter.swift in Sources */,
 				3DFE79341E33FE1800DB7183 /* DirectionsViewController.swift in Sources */,
 				3DBDD52F1E3032C800D2A517 /* GameTableViewCell.swift in Sources */,
-				3DF7FAAE1E313A9A006DD9E5 /* GameCollectionCell.swift in Sources */,
 				3D9BF0C71E2FCFB5008F3F9B /* AppDelegate.swift in Sources */,
 				3DBDD52D1E3021B300D2A517 /* GameModel.swift in Sources */,
 				3DF7FAAC1E31341B006DD9E5 /* GameViewController.swift in Sources */,
@@ -240,7 +233,6 @@
 				3DF7FAB11E3171D5006DD9E5 /* Service.swift in Sources */,
 				3DF7FAAA1E313342006DD9E5 /* EmptyViewController.swift in Sources */,
 				3DBDD5291E301A5D00D2A517 /* ScheduleViewController.swift in Sources */,
-				3D7621251E3530C3009BAC06 /* GameView.swift in Sources */,
 				3DEF9E361E32C18300882BDC /* AddressCell.swift in Sources */,
 				3DEF40E11E34563D00237EBB /* DirectionFooterCell.swift in Sources */,
 				3DF7FAB51E317802006DD9E5 /* Result.swift in Sources */,

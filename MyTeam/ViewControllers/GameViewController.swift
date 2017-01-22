@@ -11,6 +11,7 @@ import UIKit
 class GameViewController: UIViewController {
     
     
+    @IBOutlet weak var tableView: UITableView!
 
 
     var game: Game!
@@ -19,6 +20,8 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.separatorStyle = .none
+
     }
     
 
@@ -49,37 +52,39 @@ extension GameViewController: UITableViewDelegate {
 
 extension GameViewController: UITableViewDataSource {
     
-   func numberOfSections(in collectionView: UICollectionView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 3
     }
     
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
-            case 0:
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "gameCell", for: indexPath) as! GameCollectionCell
-               /* cell.homeTeamNameLabel!.text = game.homeTeam
-                cell.awayTeamNameLabel!.text = game.awayTeam
-                cell.scoreLabel!.text = "\(game.homeTeamScore) - \(game.awayTeamScore)"*/
-                return cell
-
-            case 1:
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "addressCell", for: indexPath) as! AddressCell
-              /*  cell.straatNrLabel!.text = "\(game.street) \(game.no)"
-                cell.zipCityLabel!.text = "\(game.zip) \(game.city)"*/
-                return cell
-            default:
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "squadCell", for: indexPath) as! SquadCell
-                return cell
+        case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "gameCell", for: indexPath) as! GameTableViewCell
+            cell.homeTeamNameLabel.text = game.homeTeam
+            cell.awayTeamNameLabel.text = game.awayTeam
+            cell.dateLabel.text = game.date.toString()
+            cell.timeLabel.text = (game.homeTeamScore != -1 && game.awayTeamScore != -1) ? "\(game.homeTeamScore) - \(game.awayTeamScore)" : game.time
+            cell.leagueNameType.text = game.league
+            cell.selectionStyle = .none
+            return cell
             
+        case 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "addressCell", for: indexPath) as! AddressCell
+            cell.streetNrLabel!.text = "\(game.street) \(game.no)"
+            cell.zipCityLabel!.text = "\(game.zip) \(game.city)"
+            cell.updateUI()
+            cell.selectionStyle = .none
+            return cell
+        default:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "squadCell", for: indexPath) as! SquadCell
+            cell.selectionStyle = .none
+            return cell
         }
-        
-        
-        
     }
+    
     
 }
