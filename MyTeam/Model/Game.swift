@@ -10,8 +10,10 @@ import CoreLocation
 
 class Game {
     
-    let homeTeam: String // eventueel aanpassen naar team
-    let awayTeam: String // eventueel aanpassen naar team
+    let league: String
+    let gameday: Int
+    let homeTeam: String
+    let awayTeam: String
     let location: CLLocationCoordinate2D
     let street: String
     let no: Int
@@ -22,7 +24,9 @@ class Game {
     let homeTeamScore: Int
     let awayTeamScore: Int
     
-    init(homeTeam: String, awayTeam: String, location: CLLocationCoordinate2D, street: String, no: Int, city: String, zip: Int, date: Date, time: String, homeTeamScore: Int, awayTeamScore: Int) {
+    init(league:String, gameday: Int, homeTeam: String, awayTeam: String, location: CLLocationCoordinate2D, street: String, no: Int, city: String, zip: Int, date: Date, time: String, homeTeamScore: Int, awayTeamScore: Int) {
+        self.league = league
+        self.gameday = gameday
         self.homeTeam = homeTeam
         self.awayTeam = awayTeam
         self.location = location
@@ -44,7 +48,7 @@ extension Game {
         guard let league = json["league"] as? String else {
             throw Service.Error.missingJsonProperty(name: "league")
         }
-        guard let gameDay = json["gameday"] as? Int else {
+        guard let gameday = json["gameday"] as? Int else {
             throw Service.Error.missingJsonProperty(name: "gameday")
         }
         guard let hTeam = json["homeTeam"] as? [String: Any] else {
@@ -91,7 +95,9 @@ extension Game {
         guard let awayTeamScore = json["awayScore"] as? Int else {
             throw Service.Error.missingJsonProperty(name: "awayScore")
         }
-        self.init(homeTeam: homeTeam,
+        self.init(league: league,
+                  gameday: gameday,
+                  homeTeam: homeTeam,
                   awayTeam: awayTeam,
                   location: CLLocationCoordinate2D(latitude: latitude, longitude: longitude),
                   street: street,

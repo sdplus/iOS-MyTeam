@@ -59,9 +59,6 @@ class MapViewController: UIViewController {
                 
                 goToSettingsAction(on: accessAlert)
                 
-                /*accessAlert.addAction(UIAlertAction(title: "Okay!", style: .default, handler: {
-                    (action: UIAlertAction!) in UIApplication.shared.open(<#T##url: URL##URL#>, options: <#T##[String : Any]#>, completionHandler: <#T##((Bool) -> Void)?##((Bool) -> Void)?##(Bool) -> Void#>)
-                }))*/
                 
                 present(accessAlert, animated: true, completion: nil)
                 return true

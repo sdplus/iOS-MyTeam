@@ -10,7 +10,6 @@ import UIKit
 class ScheduleViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
-    // fileprivate var model = GameModel()
     
     fileprivate var games: [Game] = []
     private var currentTask: URLSessionTask?
@@ -24,7 +23,9 @@ class ScheduleViewController: UIViewController {
         
         tableView.delegate = self
         tableView.dataSource = self
-        
+        tableView.separatorStyle = .none
+
+
         currentTask = Service.shared.loadDataTask {
             result in
             switch result {
@@ -35,7 +36,7 @@ class ScheduleViewController: UIViewController {
                 print(error)
                 self.tableView.reloadData() // to hide separators
             }
-            // activityIndicator.stopAnimating()
+           
         }
         currentTask!.resume()
         
@@ -45,6 +46,13 @@ class ScheduleViewController: UIViewController {
         tableView.refreshControl = refreshControl
 
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if let indexPath = self.tableView.indexPathForSelectedRow{
+            self.tableView.deselectRow(at: indexPath, animated: animated)
+        }
+    }
+
     
     func refreshTableView() {
         currentTask?.cancel()
@@ -84,25 +92,40 @@ extension ScheduleViewController: UITableViewDelegate {
 extension ScheduleViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return games.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return games.count
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "gameCell", for: indexPath) as! GameTableViewCell
-        let game = games[indexPath.row]
-        cell.homeTeamNameLabel.text = "\(game.homeTeam)"
+        let game = games[indexPath.section]
+        cell.homeTeamNameLabel.text = game.homeTeam
         cell.awayTeamNameLabel.text = game.awayTeam
-        cell.timeLabel.text = game.time
-        cell.dateLabel.text = game.date.toString() // format date
-
+        cell.dateLabel.text = game.date.toString()
+        cell.timeLabel.text = (game.homeTeamScore != -1 && game.awayTeamScore != -1) ? "\(game.homeTeamScore) - \(game.awayTeamScore)" : game.time
+        cell.leagueNameType.text = game.league
         return cell
         
 
+    }
+    
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = UIView()
+        view.backgroundColor = .gray
+        let gamedayLabel = UILabel()
+        gamedayLabel.text = "Speeldag \(games[section].gameday)"
+        gamedayLabel.frame = CGRect(x: 5, y: 5, width: 100, height: 20)
+        view.addSubview(gamedayLabel)
+        return view
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 30
     }
 }
 
