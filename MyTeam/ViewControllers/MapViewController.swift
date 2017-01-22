@@ -37,6 +37,8 @@ class MapViewController: UIViewController {
         }
     }
     
+
+    
     override func viewWillAppear(_ animated: Bool) {
         navigationController!.isToolbarHidden = false
     }
@@ -76,7 +78,9 @@ class MapViewController: UIViewController {
         }
         //location services are disabled on the device entirely!
         print("Location services are not enabled on this device")
-        let alert = UIAlertController(title: "Location Services Disabled", message: "Location services are not enabled on this device.", preferredStyle: UIAlertControllerStyle.alert)
+        let alert = UIAlertController(title: "Location Services Disabled", message: "Location services are disabled.", preferredStyle: UIAlertControllerStyle.alert)
+        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default)
+        alert.addAction(okAction)
         present(alert, animated: true)
         return false
     }
@@ -98,7 +102,7 @@ class MapViewController: UIViewController {
         alertController.addAction(cancelAction)
     }
     
-    func getCurrentAddress(of userLocation: CLLocation) {
+    func formatCurrentAddress(of userLocation: CLLocation) {
         CLGeocoder().reverseGeocodeLocation(userLocation, completionHandler: {(placemarks, error) -> Void in
 
             
@@ -107,13 +111,14 @@ class MapViewController: UIViewController {
                 return
             }
             
-            if placemarks!.count > 0 {
-                let pm = placemarks![0]
-                self.currentAddress = "\(pm.addressDictionary!["Street"]) ,\(pm.postalCode) \(pm.locality!)"
-                
+            if let placemarks = placemarks {
+                let placemark = placemarks[0]
+                self.currentAddress = (placemark.addressDictionary!["FormattedAddressLines"] as! [String]).joined(separator: ", ")
+                //elf.currentAddress = "\(pm.addressDictionary!["Street"]) ,\(pm.postalCode) \(pm.locality!)"
+
             }
            
-                print("Problem with the data received from geocoder")
+            print("Problem with the data received from geocoder")
             return
         })
     }
@@ -132,6 +137,8 @@ class MapViewController: UIViewController {
             
             if error != nil {
                 let alert = UIAlertController(title: "Directions not available", message: "Unable to get directions", preferredStyle: UIAlertControllerStyle.alert)
+                let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default)
+                alert.addAction(okAction)
                 self.present(alert, animated: true)
             } else {
                 self.showRoute(response!)
@@ -198,7 +205,7 @@ extension MapViewController: CLLocationManagerDelegate {
         locationManager.stopUpdatingLocation()
 
         currentLocation = CLLocationCoordinate2D(latitude: userLocation!.coordinate.latitude, longitude: userLocation!.coordinate.longitude)
-        getCurrentAddress(of: userLocation!)
+        formatCurrentAddress(of: userLocation!)
         getDirections()
     }
     

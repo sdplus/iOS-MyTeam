@@ -17,4 +17,6 @@ class GameTableViewCell: UITableViewCell {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var leagueNameType: UILabel!
+    
+    
 }
