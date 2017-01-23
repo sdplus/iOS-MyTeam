@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 class DirectionHeaderCell: UITableViewCell {
 
@@ -15,8 +16,21 @@ class DirectionHeaderCell: UITableViewCell {
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
     
-    func setUp(address: String, distance: String){
-        addressLabel.text = address
-        distanceLabel.text = distance
+    var directions: (startAddress: String, destinationAddress: String, route: MKRoute)? {
+        didSet {
+            updateUI()
+        }
+    }
+
+    
+    private func updateUI(){
+        
+        if let directions = self.directions {
+            addressLabel.text = directions.startAddress
+            distanceLabel.text = directions.route.distance.toString()
+        }
+        
+        self.accessoryType = UITableViewCellAccessoryType.none
+        
     }
 }

@@ -32,10 +32,7 @@ extension DirectionsViewController: UITableViewDelegate  {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableCell(withIdentifier: "directionHeaderCell") as! DirectionHeaderCell
-        header.setUp(address: directions.startAddress, distance: directions.route.distance.toString())
-        
-        header.accessoryType = UITableViewCellAccessoryType.none
-        
+        header.directions = directions;
         self.tableView.tableHeaderView = header
         
         return header

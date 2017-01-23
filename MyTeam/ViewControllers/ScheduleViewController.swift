@@ -26,6 +26,19 @@ class ScheduleViewController: UIViewController {
         tableView.separatorStyle = .none
 
 
+        fetchGames()
+        setUpRefreshControl()
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if let indexPath = self.tableView.indexPathForSelectedRow{
+            self.tableView.deselectRow(at: indexPath, animated: animated)
+        }
+    }
+    
+    
+    func fetchGames(){
         currentTask = Service.shared.loadDataTask {
             result in
             switch result {
@@ -36,21 +49,16 @@ class ScheduleViewController: UIViewController {
                 print(error)
                 self.tableView.reloadData() // to hide separators
             }
-           
+            
         }
         currentTask!.resume()
-        
-        // Set up refresh control.
+    }
+    
+    func setUpRefreshControl() {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refreshTableView), for: .valueChanged)
         tableView.refreshControl = refreshControl
 
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        if let indexPath = self.tableView.indexPathForSelectedRow{
-            self.tableView.deselectRow(at: indexPath, animated: animated)
-        }
     }
 
     
@@ -102,12 +110,7 @@ extension ScheduleViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "gameCell", for: indexPath) as! GameTableViewCell
-        let game = games[indexPath.section]
-        cell.homeTeamNameLabel.text = game.homeTeam
-        cell.awayTeamNameLabel.text = game.awayTeam
-        cell.dateLabel.text = game.date.toString()
-        cell.timeLabel.text = (game.homeTeamScore != -1 && game.awayTeamScore != -1) ? "\(game.homeTeamScore) - \(game.awayTeamScore)" : game.time
-        cell.leagueNameType.text = game.league
+        cell.game = games[indexPath.section]
         return cell
         
 

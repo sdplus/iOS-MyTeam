@@ -12,6 +12,10 @@ import MapKit
 import AddressBookUI
 
 class MapViewController: UIViewController {
+    
+    @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var distanceLabel: UILabel!
 
     var destinationLocation: CLLocationCoordinate2D!
     var destinationAddress: String!
@@ -20,25 +24,23 @@ class MapViewController: UIViewController {
     let locationManager = CLLocationManager()
     var directions: (startAddress: String, destinationAddress: String, route: MKRoute)!
     
-    @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var timeLabel: UILabel!
-    @IBOutlet weak var distanceLabel: UILabel!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         mapView.delegate = self
-        mapView.region = MKCoordinateRegion(center: destinationLocation, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-        showAnnotation(destinationLocation)
-        
-        if locationServicesEnabled() {
+        navigationItem.title = "Route"
+
+        if CLLocationManager.locationServicesEnabled() && isAuthorized() {
             locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
             locationManager.startUpdatingLocation()
+        }
+        else {
+            alertLocationDisabled()
+            showStaticMap()
         }
     }
     
 
-    
     override func viewWillAppear(_ animated: Bool) {
         navigationController!.isToolbarHidden = false
     }
@@ -47,42 +49,27 @@ class MapViewController: UIViewController {
         navigationController!.isToolbarHidden = true
     }
     
-    func locationServicesEnabled() -> Bool {
-        //check if location services are enabled at all
-        if CLLocationManager.locationServicesEnabled() {
+    func isAuthorized() -> Bool {
+        
+        locationManager.delegate = self
             
-            locationManager.delegate = self
-            
-            // Get the current authorization status for this app
-            switch(CLLocationManager.authorizationStatus()) {
-            case .restricted, .denied:  //this app is not permitted to use location services
-                print("No access")
-                let accessAlert = UIAlertController(title: "Location Services Disabled", message: "You need to enable location services in settings to get directions.", preferredStyle: UIAlertControllerStyle.alert)
-                
-                goToSettingsAction(on: accessAlert)
-                
-                
-                present(accessAlert, animated: true, completion: nil)
+        switch(CLLocationManager.authorizationStatus()) {
+            case .restricted, .denied:
+                alertLocationDisabled()
+                return ( CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways)
+            case .authorizedAlways, .authorizedWhenInUse:
                 return true
-                
-            
-            case .authorizedAlways, .authorizedWhenInUse: // services are allowed for this app
-                print("Access! We're good to go!")
-                return true
-            case .notDetermined:    // we need to ask for access
-                print("asking for access...")
-                locationManager.requestWhenInUseAuthorization() // Request permission to use location services
-                return true
-            }
-            
+            case .notDetermined:
+                locationManager.requestWhenInUseAuthorization()
+                return ( CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways)
         }
-        //location services are disabled on the device entirely!
-        print("Location services are not enabled on this device")
-        let alert = UIAlertController(title: "Location Services Disabled", message: "Location services are disabled.", preferredStyle: UIAlertControllerStyle.alert)
-        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default)
-        alert.addAction(okAction)
+        
+    }
+
+    func alertLocationDisabled(){
+        let alert = UIAlertController(title: "Location Services Disabled", message: "You need to enable location services in settings to get directions.", preferredStyle: UIAlertControllerStyle.alert)
+        goToSettingsAction(on: alert)
         present(alert, animated: true)
-        return false
     }
     
     func goToSettingsAction(on alertController: UIAlertController){
@@ -100,6 +87,13 @@ class MapViewController: UIViewController {
         alertController.addAction(settingsAction)
         let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
         alertController.addAction(cancelAction)
+    }
+    
+    func buildOKAlert(title: String, message: String){
+        let alert = UIAlertController(title: title , message: message, preferredStyle: UIAlertControllerStyle.alert)
+        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default)
+        alert.addAction(okAction)
+        self.present(alert, animated: true)
     }
     
     func formatCurrentAddress(of userLocation: CLLocation) {
@@ -136,10 +130,7 @@ class MapViewController: UIViewController {
         directions.calculate(completionHandler: {(response, error) in
             
             if error != nil {
-                let alert = UIAlertController(title: "Directions not available", message: "Unable to get directions", preferredStyle: UIAlertControllerStyle.alert)
-                let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default)
-                alert.addAction(okAction)
-                self.present(alert, animated: true)
+                self.buildOKAlert(title: "Directions not available", message: "Unable to get directions")
             } else {
                 self.showRoute(response!)
                 self.mapView.showsUserLocation = true
@@ -166,6 +157,13 @@ class MapViewController: UIViewController {
         }
     }
     
+    func showStaticMap(){
+        mapView.region = MKCoordinateRegion(center: destinationLocation, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+        showAnnotation(destinationLocation)
+        timeLabel.text = destinationAddress
+        distanceLabel.text = ""
+    }
+    
     func showAnnotation(_ destinationLocation: CLLocationCoordinate2D){
         let pin = MKPointAnnotation()
         pin.coordinate = destinationLocation
@@ -174,15 +172,11 @@ class MapViewController: UIViewController {
     }
     
     func printTimeToLabel(_ time: TimeInterval) {
-        timeLabel.text = "Reistijd: \(time.formatted())"
+        timeLabel.text = time.formatted()
     }
     
     func printDistanceToLabel(_ distance: CLLocationDistance ) {
         distanceLabel.text = distance.toString()
-    }
-    
-    func showDirections(sender: UIBarButtonItem) {
-        // performSegue(withIdentifier: "showDirections", sender: sender)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -196,10 +190,6 @@ class MapViewController: UIViewController {
 
 extension MapViewController: CLLocationManagerDelegate {
     
-    func mapView(_ mapView: MKMapView, didFailToLocateUserWithError error: Error) {
-        print("Location failed")
-    }
-    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let userLocation = locations.last
         locationManager.stopUpdatingLocation()
@@ -207,10 +197,16 @@ extension MapViewController: CLLocationManagerDelegate {
         currentLocation = CLLocationCoordinate2D(latitude: userLocation!.coordinate.latitude, longitude: userLocation!.coordinate.longitude)
         formatCurrentAddress(of: userLocation!)
         getDirections()
+        
     }
     
+
+    
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print(error)
+        buildOKAlert(title: "Failed to get location", message: "An error occured while retrieving your location")
+        navigationController!.isToolbarHidden = true
+        showStaticMap()
+        locationManager.stopUpdatingLocation()
     }
 }
 
@@ -221,6 +217,5 @@ extension MapViewController: MKMapViewDelegate {
         renderer.strokeColor = UIColor.blue
         return renderer
     }
-
     
 }

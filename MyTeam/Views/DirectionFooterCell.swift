@@ -14,7 +14,16 @@ class DirectionFooterCell: UITableViewCell {
     @IBOutlet weak var destinationPin: UIImageView!
     @IBOutlet weak var destinationAddressLabel: UILabel!
     
-    func setUp(destinationAddress: String){
-        destinationAddressLabel.text = destinationAddress
+    var destinationAddress: String? {
+        didSet {
+            updateUI()
+        }
+    }
+    
+    private func updateUI(){
+        if let destinationAddress = self.destinationAddress {
+            destinationAddressLabel.text = destinationAddress
+
+        }
     }
 }

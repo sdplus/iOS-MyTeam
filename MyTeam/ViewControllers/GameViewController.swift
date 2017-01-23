@@ -21,7 +21,6 @@ class GameViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
-
     }
     
 
@@ -64,20 +63,12 @@ extension GameViewController: UITableViewDataSource {
         switch indexPath.section {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "gameCell", for: indexPath) as! GameTableViewCell
-            cell.homeTeamNameLabel.text = game.homeTeam
-            cell.awayTeamNameLabel.text = game.awayTeam
-            cell.dateLabel.text = game.date.toString()
-            cell.timeLabel.text = (game.homeTeamScore != -1 && game.awayTeamScore != -1) ? "\(game.homeTeamScore) - \(game.awayTeamScore)" : game.time
-            cell.leagueNameType.text = game.league
-            cell.selectionStyle = .none
+            cell.game = game
             return cell
             
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "addressCell", for: indexPath) as! AddressCell
-            cell.streetNrLabel!.text = "\(game.street) \(game.no)"
-            cell.zipCityLabel!.text = "\(game.zip) \(game.city)"
-            cell.updateUI()
-            cell.selectionStyle = .none
+            cell.game = game
             return cell
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: "squadCell", for: indexPath) as! SquadCell

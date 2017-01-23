@@ -18,5 +18,25 @@ class GameTableViewCell: UITableViewCell {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var leagueNameType: UILabel!
     
+    var game: Game? {
+        didSet {
+            updateUI()
+        }
+    }
+    
+    private func updateUI(){
+        
+        if let game = self.game {
+            homeTeamNameLabel.text = game.homeTeam
+            awayTeamNameLabel.text = game.awayTeam
+            dateLabel.text = game.date.toString()
+            timeLabel.text = (game.homeTeamScore != -1 && game.awayTeamScore != -1) ? "\(game.homeTeamScore) - \(game.awayTeamScore)" : game.time
+            leagueNameType.text = game.league
+        }
+
+        self.selectionStyle = .none
+
+    }
+    
     
 }
