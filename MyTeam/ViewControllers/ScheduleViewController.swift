@@ -119,10 +119,11 @@ extension ScheduleViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView()
-        view.backgroundColor = .gray
+        view.backgroundColor = UIColor(red: 240/255.0, green: 240/255.0, blue: 240/255.0, alpha: 1.0)
         let gamedayLabel = UILabel()
         gamedayLabel.text = "Speeldag \(games[section].gameday)"
-        gamedayLabel.frame = CGRect(x: 5, y: 5, width: 100, height: 20)
+        gamedayLabel.frame = CGRect(x: 15, y: 5, width: 100, height: 20)
+        gamedayLabel.textColor = UIColor.darkGray
         view.addSubview(gamedayLabel)
         return view
     }

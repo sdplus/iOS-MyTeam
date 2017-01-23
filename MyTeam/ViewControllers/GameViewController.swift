@@ -21,6 +21,8 @@ class GameViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
+        tableView.backgroundColor = UIColor(red: 240/255.0, green: 240/255.0, blue: 240/255.0, alpha: 1.0)
+
     }
     
 
@@ -73,6 +75,7 @@ extension GameViewController: UITableViewDataSource {
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: "squadCell", for: indexPath) as! SquadCell
             cell.selectionStyle = .none
+            cell.backgroundColor = UIColor.clear
             return cell
         }
     }
