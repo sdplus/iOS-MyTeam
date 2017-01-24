@@ -39,6 +39,8 @@ class ScheduleViewController: UIViewController {
     
     
     func fetchGames(){
+        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        activityIndicator.startAnimating()
         currentTask = Service.shared.loadDataTask {
             result in
             switch result {
@@ -47,9 +49,9 @@ class ScheduleViewController: UIViewController {
                 self.tableView.reloadData()
             case .failure(let error):
                 print(error)
-                self.tableView.reloadData() // to hide separators
+                self.tableView.reloadData()
             }
-            
+            activityIndicator.stopAnimating()
         }
         currentTask!.resume()
     }
@@ -74,7 +76,7 @@ class ScheduleViewController: UIViewController {
             case .failure(let error):
                 print(error)
         
-                self.tableView.reloadData() // to hide separators
+                self.tableView.reloadData()
             }
             self.tableView.refreshControl!.endRefreshing()
         }
@@ -94,6 +96,23 @@ class ScheduleViewController: UIViewController {
 }
 
 extension ScheduleViewController: UITableViewDelegate {
+    
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = UIView()
+        view.backgroundColor = UIColor(red: 240/255.0, green: 240/255.0, blue: 240/255.0, alpha: 1.0)
+        let gamedayLabel = UILabel()
+        gamedayLabel.text = "Speeldag \(games[section].gameday)"
+        gamedayLabel.frame = CGRect(x: 15, y: 5, width: 100, height: 20)
+        gamedayLabel.textColor = UIColor.darkGray
+        view.addSubview(gamedayLabel)
+        return view
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 30
+    }
+
     
 }
 
@@ -116,21 +135,6 @@ extension ScheduleViewController: UITableViewDataSource {
 
     }
     
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = UIView()
-        view.backgroundColor = UIColor(red: 240/255.0, green: 240/255.0, blue: 240/255.0, alpha: 1.0)
-        let gamedayLabel = UILabel()
-        gamedayLabel.text = "Speeldag \(games[section].gameday)"
-        gamedayLabel.frame = CGRect(x: 15, y: 5, width: 100, height: 20)
-        gamedayLabel.textColor = UIColor.darkGray
-        view.addSubview(gamedayLabel)
-        return view
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 30
-    }
 }
 
 
