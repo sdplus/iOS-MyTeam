@@ -21,8 +21,16 @@ class DirectionsViewController: UIViewController {
         
         tableView.delegate = self
         tableView.dataSource = self
-
+        navigationItem.title = "Routebeschrijving"
     
+    }
+    
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        if !splitViewController!.isCollapsed {
+            navigationItem.leftBarButtonItem = splitViewController!.displayModeButtonItem
+        }
     }
 
 }

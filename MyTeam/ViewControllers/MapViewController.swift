@@ -183,7 +183,8 @@ class MapViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let destination = segue.destination as! DirectionsViewController
+        let navigationController = segue.destination as! UINavigationController
+        let destination = navigationController.topViewController as! DirectionsViewController
         destination.directions = directions
     }
 
